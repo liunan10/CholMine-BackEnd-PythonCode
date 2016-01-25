@@ -26,12 +26,12 @@ import numpy as np
 from ASCbasePy.utils import pdb
 import csv
 from datetime import datetime
- 
-def usage_args():   
+
+def parser():
    parser = argparse.ArgumentParser(prog="CholMine",usage='%(prog)s [options]',description='version1.00 server',formatter_class=argparse.RawDescriptionHelpFormatter,epilog='''
    Typically,
    CholMine -CLR -opse -projout /usr/SimSite3D/CholMine -pfile xxxx  -lnum xxx -lchain x
-   CholMine -CHD -opse -projout /usr/SimSite3D/CholMine -pfile xxxx  -lnum xxx -lchain x 
+   CholMine -CHD -opse -projout /usr/SimSite3D/CholMine -pfile xxxx  -lnum xxx -lchain x
    CholMine -CLR -projout /usr/SimSite3D/CholMine -pfile xxxx -keyresidue xxx''')
    parser.add_argument("-CLR", "--CLR", help="CLR predictor turned on",action='store_true')
    parser.add_argument("-CHD", "--CHD", help ="CHD predictor turned on", action='store_true')
@@ -43,24 +43,13 @@ def usage_args():
    parser.add_argument("-lnum", "--lnum", help='ligand residue number such as 412')
    parser.add_argument("-lchain", "--lchain",  help='ligand chainID such as A. If the chain ID is not supplied, the default chain ID will be _.')
    parser.add_argument("-keyresidue", "--keyresidue",  help='keyresidue file name such as keyresidue')
+   return parser 
+def usage_args():   
+   parser=parser()
    args = parser.parse_args()
    return args
 def usage_help():
-   parser = argparse.ArgumentParser(prog="CholMine",usage='%(prog)s [options]',description='version1.00 server',formatter_class=argparse.RawDescriptionHelpFormatter,epilog='''
-   Typically
-   CholMine -CLR -projout /usr/SimSite3D/CholMine -pfile xxxx -lnum xxx -lchain x
-   CholMine -CHD -projout /usr/SimSite3D/CholMine -pfile xxxx -lnum xxx -lchain x 
-   CholMine -CLR -projout /usr/SimSite3D/CholMine -pfile xxxx -keyresidue xxx''')
-   parser.add_argument("-CLR", "--CLR", help="CLR predictor turned on",action='store_true')
-   parser.add_argument("-CHD", "--CHD", help ="CHD predictor turned on", action='store_true')
-   parser.add_argument("-opse", "--opse", help="output PyMOL pse file",action='store_true')
-   parser.add_argument("-v", "--v", help = "debug, output all the resulting files", action='store_true')
-   parser.add_argument("-projout", "--projout", help = "usr defined pathway for the output directory, such as /usr/SimSite3D/CholMine")
-   parser.add_argument("-pfile", "--pfile",  help='protein file name such as 2RH1')
- #  parser.add_argument("-lname", "--lname", help='ligand residue name such as CLR')
-   parser.add_argument("-lnum", "--lnum", help='ligand residue number such as 412')
-   parser.add_argument("-lchain", "--lchain",  help='ligand chainID such as A. If the chain ID is not supplied, the default chain ID will be _.')
-   parser.add_argument("-keyresidue", "--keyresidue",  help='keyresidue file name such as keyresidue')
+   parser=parser()
    help = parser.print_help()
    return help
 
